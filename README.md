@@ -14,11 +14,9 @@ StoryCircuit helps technical practitioners generate high-quality social content 
 *Clean, intuitive interface for generating platform-optimized content with casual shorthand input support*
 
 ### Generated Content Example
-<img src="https://github.com/vrengar/storycircuit/blob/main/docs/screenshot-output.png" alt="Content Output" width="800">
 
 *Professional content display with copy-to-clipboard buttons, styled hashtags, and formatted markdown*
-
-**Sample Output:** See [example-output.md](docs/example-output.md) for a full content generation example.
+See [example-output.md](docs/example-output.md) for a full content generation example.
 
 ## 🏆 Project Highlights
 
