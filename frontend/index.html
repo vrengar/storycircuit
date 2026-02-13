@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryCircuit - Technical Narrative Architect</title>
+    <link rel="stylesheet" href="/static/styles/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">⚡ StoryCircuit</h1>
+            <p class="tagline">Transform technical topics into platform-optimized social content</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="generate">Generate Content</button>
+            <button class="tab-button" data-tab="history">History</button>
+        </nav>
+
+        <!-- Generate Content Tab -->
+        <section id="generate-tab" class="tab-content active">
+            <div class="card">
+                <h2>Generate Platform-Optimized Content</h2>
+                <form id="generate-form" class="form">
+                    <!-- Topic -->
+                    <div class="form-group">
+                        <label for="topic">Technical Topic *</label>
+                        <textarea 
+                            id="topic" 
+                            name="topic" 
+                            rows="3" 
+                            placeholder="E.g., Understanding AI agent orchestration patterns"
+                            required
+                            minlength="3"
+                            maxlength="500"
+                        ></textarea>
+                        <span class="form-hint">Describe the technical topic you want to create content about</span>
+                    </div>
+
+                    <!-- Platforms -->
+                    <div class="form-group">
+                        <label>Target Platforms *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="linkedin" checked>
+                                <span>LinkedIn</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="twitter">
+                                <span>X/Twitter</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="github">
+                                <span>GitHub</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="platforms" value="blog">
+                                <span>Blog</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Audience -->
+                    <div class="form-group">
+                        <label for="audience">Target Audience (Optional)</label>
+                        <input 
+                            type="text" 
+                            id="audience" 
+                            name="audience" 
+                            placeholder="E.g., software engineers, technical architects"
+                            maxlength="200"
+                        >
+                    </div>
+
+                    <!-- Additional Context -->
+                    <div class="form-group">
+                        <label for="additional-context">Additional Context (Optional)</label>
+                        <textarea 
+                            id="additional-context" 
+                            name="additional_context" 
+                            rows="2" 
+                            placeholder="E.g., Focus on Microsoft Azure AI Foundry tools"
+                            maxlength="1000"
+                        ></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="generate-btn">
+                            <span class="btn-text">Generate Content</span>
+                            <span class="btn-loading" style="display: none;">Generating...</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="card" style="display: none;">
+                <div class="results-header">
+                    <h2>Generated Content</h2>
+                    <div class="results-actions">
+                        <button class="btn btn-secondary" id="export-md-btn">Export as Markdown</button>
+                        <button class="btn btn-secondary" id="export-json-btn">Export as JSON</button>
+                    </div>
+                </div>
+                <div id="results-container"></div>
+            </div>
+        </section>
+
+        <!-- History Tab -->
+        <section id="history-tab" class="tab-content">
+            <div class="card">
+                <div class="history-header">
+                    <h2>Content History</h2>
+                    <button class="btn btn-secondary" id="refresh-history-btn">Refresh</button>
+                </div>
+                <div id="history-loading" class="loading" style="display: none;">Loading history...</div>
+                <div id="history-container"></div>
+                <div id="history-pagination" class="pagination"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 StoryCircuit | Powered by Azure AI Foundry</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/static/scripts/api.js?v=2"></script>
+    <script src="/static/scripts/app.js?v=2"></script>
+</body>
+</html>

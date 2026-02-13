@@ -1,0 +1,70 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests
+tests/
+*.test.py
+test_*.py
+
+# CI/CD
+.github/
+.azure/
+
+# Specifications
+REQUIREMENTS.md
+ARCHITECTURE.md
+API_SPEC.md
+
+# Temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Build artifacts
+*.tar
+*.gz
+*.zip
