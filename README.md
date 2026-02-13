@@ -113,44 +113,35 @@ social-media-agent/
 
 ### Local Development
 
-**Prerequisites:** Python 3.11+, Azure subscription, Azure AI Foundry project
-
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/vrengar/storycircuit.git
-   cd social-media-agent
+   cd storycircuit
    ```
 
 2. **Set up environment:**
    ```bash
+   cd backend
    cp .env.example .env
-   # Edit .env with your Azure AI Foundry endpoint and credentials
+   # Edit .env with your Azure AI Foundry credentials
    ```
 
 3. **Install dependencies:**
    ```bash
-5. **Start the server:**
+   pip install -r requirements.txt
+   ```
+
+4. **Start the server:**
    ```bash
-   cd backend
    python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
    ```
 
-6. **Access the application:**
+5. **Access the application:**
    - Web UI: http://localhost:8001
    - API Docs: http://localhost:8001/docs
    - ReDoc: http://localhost:8001/redoc
 
-7. **Generate content:** Enter a technical topic (e.g., "Container Apps scaling") and select target platforms
-4. **Run the application:**
-   ```bash
-   cd backend
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-5. **Access the application:**
-   - Web UI: http://localhost:8000
-   - API Docs: http://localhost:8000/docs
-   - ReDoc: http://localhost:8000/redoc
+6. **Generate content:** Enter a technical topic (e.g., "Container Apps scaling") and select target platforms
 
 ### Azure Deployment
 
