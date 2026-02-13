@@ -199,27 +199,134 @@ function formatPlatformOutput(platform, output) {
         return '<div class="result-content"><div class="result-text">No content generated</div></div>';
     }
     
-    if (platform === 'twitter' && output.tweets) {
+    // Generate unique ID for this platform's content
+    const contentId = `content-${platform}-${Date.now()}`;
+    
+    // Extract content from output
+    let mainContent = '';
+    let hashtags = [];
+    let callToAction = '';
+    
+    if (typeof output === 'string') {
+        mainContent = output;
+    } else if (output.content) {
+        mainContent = output.content;
+        hashtags = output.hashtags || [];
+        callToAction = output.call_to_action || output.callToAction || output.cta || '';
+    } else if (platform === 'twitter' && output.tweets) {
+        // Twitter thread format
         html += '<div class="result-content">';
+        html += '<div class="platform-content-header">';
         html += `<div class="result-label">Thread Structure: ${escapeHtml(output.thread_structure || output.threadStructure || 'Unknown')}</div>`;
-        html += '<div class="result-label" style="margin-top: 1rem;">Tweets:</div>';
+        html += `<button class="copy-btn" onclick="copyTwitterThread('${contentId}')" title="Copy thread">📋 Copy Thread</button>`;
+        html += '</div>';
+        html += `<div class="platform-content" id="${contentId}">`;
         output.tweets.forEach(tweet => {
-            html += `<div style="margin: 1rem 0; padding: 1rem; background: #f9f9f9; border-left: 3px solid var(--primary-color);">`;
+            html += `<div style="margin: 1rem 0; padding: 1rem; background: #f9f9f9; border-left: 3px solid var(--primary-color); border-radius: 4px;">`;
             html += `<strong>Tweet ${tweet.order}:</strong><br>`;
-            html += `${escapeHtml(tweet.content)}<br>`;
+            html += `<span style="white-space: pre-wrap;">${escapeHtml(tweet.content)}</span><br>`;
             html += `<small style="color: var(--text-secondary);">(${tweet.character_count || tweet.characterCount} characters)</small>`;
             html += `</div>`;
         });
-        html += '</div>';
-    } else {
-        // Generic output display
-        html += '<div class="result-content">';
-        html += `<pre class="result-text">${escapeHtml(JSON.stringify(output, null, 2))}</pre>`;
+        html += '</div></div>';
+        return html;
+    }
+    
+    // Display formatted content with copy button
+    html += '<div class="result-content">';
+    html += '<div class="platform-content-header">';
+    html += '<button class="copy-btn" onclick="copyToClipboard(\'' + contentId + '\')" title="Copy content">📋 Copy Content</button>';
+    html += '</div>';
+    html += `<div class="platform-content" id="${contentId}">`;
+    html += `<div class="content-text">${formatText(mainContent)}</div>`;
+    
+    // Display hashtags if present
+    if (hashtags && hashtags.length > 0) {
+        html += '<div class="hashtags-section">';
+        html += '<strong>Hashtags:</strong> ';
+        html += hashtags.map(tag => `<span class="hashtag">${escapeHtml(tag)}</span>`).join(' ');
         html += '</div>';
     }
     
+    // Display CTA if present
+    if (callToAction) {
+        html += '<div class="cta-section">';
+        html += '<strong>Call to Action:</strong> ';
+        html += `<span>${escapeHtml(callToAction)}</span>`;
+        html += '</div>';
+    }
+    
+    html += '</div></div>';
+    
     return html;
 }
+
+// Format text with proper line breaks and links
+function formatText(text) {
+    if (!text) return 'No content';
+    
+    // Escape HTML but preserve line breaks
+    let formatted = escapeHtml(text);
+    
+    // Convert line breaks to <br>
+    formatted = formatted.replace(/\n/g, '<br>');
+    
+    // Make URLs clickable
+    formatted = formatted.replace(
+        /(https?:\/\/[^\s<]+)/g,
+        '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
+    
+    return formatted;
+}
+
+// Copy content to clipboard
+window.copyToClipboard = async function(elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    // Get text content, preserving line breaks
+    const contentDiv = element.querySelector('.content-text');
+    if (!contentDiv) return;
+    
+    // Extract original text from the formatted HTML
+    const text = contentDiv.innerHTML
+        .replace(/<br>/g, '\n')
+        .replace(/<a[^>]*>(.*?)<\/a>/g, '$1')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'");
+    
+    try {
+        await navigator.clipboard.writeText(text);
+        showToast('Content copied to clipboard!', 'success');
+    } catch (err) {
+        console.error('Copy failed:', err);
+        showToast('Failed to copy content', 'error');
+    }
+};
+
+// Copy Twitter thread to clipboard
+window.copyTwitterThread = async function(elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const tweets = element.querySelectorAll('div[style*="border-left"]');
+    const threadText = Array.from(tweets).map(tweet => {
+        const span = tweet.querySelector('span');
+        return span ? span.textContent : '';
+    }).filter(text => text).join('\n\n---\n\n');
+    
+    try {
+        await navigator.clipboard.writeText(threadText);
+        showToast('Thread copied to clipboard!', 'success');
+    } catch (err) {
+        console.error('Copy failed:', err);
+        showToast('Failed to copy thread', 'error');
+    }
+};
 
 // History Tab
 function initializeHistoryTab() {
