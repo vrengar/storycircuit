@@ -6,6 +6,40 @@ A Microsoft-aligned Technical Narrative Architect Agent that transforms complex 
 
 StoryCircuit helps technical practitioners generate high-quality social content across multiple platforms (LinkedIn, X/Twitter, GitHub, Blog) using Azure AI Foundry.
 
+## 📸 Demo & Screenshots
+
+### Application Interface
+<img src="https://github.com/vrengar/storycircuit/blob/main/docs/screenshot-ui.png" alt="StoryCircuit UI" width="800">
+
+*Clean, intuitive interface for generating platform-optimized content with casual shorthand input support*
+
+### Generated Content Example
+<img src="https://github.com/vrengar/storycircuit/blob/main/docs/screenshot-output.png" alt="Content Output" width="800">
+
+*Professional content display with copy-to-clipboard buttons, styled hashtags, and formatted markdown*
+
+**Sample Output:** See [example-output.md](docs/example-output.md) for a full content generation example.
+
+## 🏆 Project Highlights
+
+**Description:** StoryCircuit is an AI-powered technical narrative architect that transforms complex technical topics into platform-optimized social media content. Users input casual shorthand requests (e.g., "AKS security in prod") and the agent generates distinct, professional content tailored for LinkedIn, Twitter, GitHub, or Blog platforms. Built with Azure AI Foundry's agent framework, it employs Chain-of-Thought reasoning patterns with web search and file search capabilities to ground responses in current, verified information. The system stores generated content in Azure Cosmos DB for retrieval and features a modern web interface with one-click copy-to-clipboard functionality.
+
+**Primary Language:** Python
+
+**Key Technologies:**
+- Azure AI Foundry - AI agent orchestration with web search and file search tools
+- Azure Cosmos DB - NoSQL database for content storage
+- FastAPI - Python web framework for REST API
+- Azure AI Projects SDK - Agent communication with built-in tool capabilities
+- Uvicorn - ASGI server for async request handling
+- Knowledge Base - 987-line agent instructions with Chain-of-Thought reasoning patterns
+
+**Technical Highlights:**
+- Azure AI Foundry agent configured with web search tool for real-time access to current Microsoft documentation and official sources
+- Implements sophisticated Chain-of-Thought reasoning with multiple patterns (ReAct, Self-Reflection) encoded in 987-line knowledge base
+- Intelligently interprets casual shorthand requests (e.g., "AKS security in prod") and generates truly distinct platform-optimized outputs—not just reformatted duplicates
+- File search capability against comprehensive knowledge base with Azure abbreviations, brand guidelines, and platform-specific best practices
+
 ## ✨ Features
 
 - **Multi-platform content generation** - LinkedIn posts, Twitter threads, GitHub documentation, blog posts
@@ -81,8 +115,11 @@ social-media-agent/
 
 ### Local Development
 
-1. **Clone and navigate:**
+**Prerequisites:** Python 3.11+, Azure subscription, Azure AI Foundry project
+
+1. **Clone the repository:**
    ```bash
+   git clone https://github.com/vrengar/storycircuit.git
    cd social-media-agent
    ```
 
@@ -94,9 +131,18 @@ social-media-agent/
 
 3. **Install dependencies:**
    ```bash
-   pip install -r backend/requirements.txt
+5. **Start the server:**
+   ```bash
+   cd backend
+   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
    ```
 
+6. **Access the application:**
+   - Web UI: http://localhost:8001
+   - API Docs: http://localhost:8001/docs
+   - ReDoc: http://localhost:8001/redoc
+
+7. **Generate content:** Enter a technical topic (e.g., "Container Apps scaling") and select target platforms
 4. **Run the application:**
    ```bash
    cd backend
