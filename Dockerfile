@@ -35,8 +35,8 @@ ENV PATH=/root/.local/bin:$PATH
 # Copy application code
 COPY backend/app ./app
 
-# Copy frontend files
-COPY frontend ./static
+# Copy frontend files to correct location
+COPY frontend ./frontend
 
 # Expose port
 EXPOSE 8000
