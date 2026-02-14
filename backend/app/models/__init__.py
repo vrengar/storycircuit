@@ -47,7 +47,6 @@ __all__ = [
     "ContentGenerationRequest",
     "ContentHistoryQueryParams",
     "ExportQueryParams",
-    
     # Response models
     "ContentPlan",
     "Tweet",
@@ -70,7 +69,6 @@ __all__ = [
     "ReadinessResponse",
     "ValidationError",
     "ErrorResponse",
-    
     # Database models
     "ContentDocument",
     "ContentQueryResult",

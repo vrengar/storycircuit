@@ -22,12 +22,12 @@ from .utils.exceptions import (
     ContentNotFoundError,
     ValidationError as AppValidationError,
     ExportError,
-    RateLimitError
+    RateLimitError,
 )
+
 # Import dependencies from dedicated file
 from . import dependencies
 from .routers import content_router, health_router
-
 
 # Get settings
 settings = get_settings()
@@ -41,12 +41,12 @@ logger = structlog.get_logger(__name__)
 async def lifespan(app: FastAPI):
     """Application lifespan manager."""
     logger.info("Starting StoryCircuit application", environment=settings.environment)
-    
+
     # Startup
     logger.info("Application startup complete")
-    
+
     yield
-    
+
     # Shutdown
     logger.info("Shutting down StoryCircuit application")
 
@@ -59,7 +59,7 @@ app = FastAPI(
     lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc",
-    openapi_url="/api/v1/openapi.json"
+    openapi_url="/api/v1/openapi.json",
 )
 
 
@@ -78,11 +78,11 @@ app.add_middleware(
 async def add_security_headers(request: Request, call_next):
     """Add security headers to all responses."""
     response = await call_next(request)
-    
+
     # Add security headers
     for header_name, header_value in SecurityHeaders.get_headers().items():
         response.headers[header_name] = header_value
-    
+
     return response
 
 
@@ -97,11 +97,7 @@ async def agent_timeout_handler(request: Request, exc: AgentTimeoutError):
     logger.error("Agent timeout", error=str(exc), path=request.url.path)
     return JSONResponse(
         status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-        content={
-            "detail": str(exc),
-            "error_code": "AGENT_TIMEOUT",
-            "retry_after": 10
-        }
+        content={"detail": str(exc), "error_code": "AGENT_TIMEOUT", "retry_after": 10},
     )
 
 
@@ -114,8 +110,8 @@ async def agent_service_error_handler(request: Request, exc: AgentServiceError):
         content={
             "detail": "Agent service temporarily unavailable. Please try again.",
             "error_code": "AGENT_UNAVAILABLE",
-            "retry_after": 30
-        }
+            "retry_after": 30,
+        },
     )
 
 
@@ -128,8 +124,8 @@ async def database_error_handler(request: Request, exc: DatabaseError):
         content={
             "detail": "Database temporarily unavailable. Please try again.",
             "error_code": "DATABASE_ERROR",
-            "retry_after": 10
-        }
+            "retry_after": 10,
+        },
     )
 
 
@@ -139,10 +135,7 @@ async def content_not_found_handler(request: Request, exc: ContentNotFoundError)
     logger.warning("Content not found", error=str(exc), path=request.url.path)
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={
-            "detail": str(exc),
-            "error_code": "NOT_FOUND"
-        }
+        content={"detail": str(exc), "error_code": "NOT_FOUND"},
     )
 
 
@@ -155,8 +148,8 @@ async def rate_limit_handler(request: Request, exc: RateLimitError):
         content={
             "detail": "Rate limit exceeded. Please try again later.",
             "error_code": "RATE_LIMITED",
-            "retry_after": 60
-        }
+            "retry_after": 60,
+        },
     )
 
 
@@ -168,8 +161,8 @@ async def general_error_handler(request: Request, exc: StoryCircuitError):
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={
             "detail": "An error occurred. Please try again.",
-            "error_code": "INTERNAL_ERROR"
-        }
+            "error_code": "INTERNAL_ERROR",
+        },
     )
 
 
@@ -180,14 +173,14 @@ async def unexpected_error_handler(request: Request, exc: Exception):
         "Unexpected error",
         error=str(exc),
         error_type=type(exc).__name__,
-        path=request.url.path
+        path=request.url.path,
     )
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={
             "detail": "An unexpected error occurred. Please contact support.",
-            "error_code": "INTERNAL_ERROR"
-        }
+            "error_code": "INTERNAL_ERROR",
+        },
     )
 
 
@@ -205,6 +198,7 @@ if FRONTEND_DIR.exists():
     # Mount CSS and JS as static files
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
+
 # Root endpoint - serve frontend
 @app.get("/", include_in_schema=False)
 async def root():
@@ -218,7 +212,7 @@ async def root():
             "message": "StoryCircuit API",
             "version": "1.0.0",
             "docs": "/docs",
-            "health": "/api/v1/health"
+            "health": "/api/v1/health",
         }
 
 
@@ -234,27 +228,28 @@ async def log_requests(request: Request, call_next):
         "Request received",
         method=request.method,
         path=request.url.path,
-        client=request.client.host if request.client else None
+        client=request.client.host if request.client else None,
     )
-    
+
     response = await call_next(request)
-    
+
     logger.info(
         "Request completed",
         method=request.method,
         path=request.url.path,
-        status_code=response.status_code
+        status_code=response.status_code,
     )
-    
+
     return response
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
         port=8000,
         reload=settings.is_development,
-        log_level=settings.log_level.lower()
+        log_level=settings.log_level.lower(),
     )
