@@ -6,7 +6,13 @@ A Microsoft-aligned Technical Narrative Architect Agent that transforms complex 
 
 StoryCircuit helps technical practitioners generate high-quality social content across multiple platforms (LinkedIn, X/Twitter, GitHub, Blog) using Azure AI Foundry.
 
-## 📸 Demo & Screenshots
+## � Live Demo
+
+**Try it now:** [https://storycircuit.proudhill-44c243c4.eastus.azurecontainerapps.io/](https://storycircuit.proudhill-44c243c4.eastus.azurecontainerapps.io/)
+
+*Deployed on Azure Container Apps with Azure Cosmos DB and Azure AI Foundry integration*
+
+## �📸 Demo & Screenshots
 
 ### Application Interface
 <img src="https://github.com/vrengar/storycircuit/blob/main/docs/screenshot-ui.png" alt="StoryCircuit UI" width="800">
@@ -149,6 +155,23 @@ social-media-agent/
 
 ### Azure Deployment
 
+**Quick Deploy to Azure Container Apps:**
+
+```bash
+# Deploy with one command (builds remotely, no Docker needed)
+az containerapp up \
+  --name storycircuit \
+  --resource-group <your-rg> \
+  --location eastus \
+  --source . \
+  --ingress external \
+  --target-port 8000 \
+  --env-vars \
+    AZURE_AI_ENDPOINT="<your-endpoint>" \
+    COSMOS_ENDPOINT="<your-cosmos-endpoint>" \
+    ENVIRONMENT="production"
+```
+
 **Using Azure Developer CLI (azd):**
 
 ```bash
@@ -162,6 +185,35 @@ azd up
 azd provision  # Create Azure resources
 azd deploy     # Deploy application
 ```
+
+**Post-Deployment Configuration:**
+
+1. **Enable Managed Identity:**
+   ```bash
+   az containerapp identity assign -n storycircuit -g <your-rg> --system-assigned
+   ```
+
+2. **Grant Cosmos DB Access:**
+   ```bash
+   az cosmosdb sql role assignment create \
+     --account-name <cosmos-account> \
+     --resource-group <your-rg> \
+     --role-definition-name "Cosmos DB Built-in Data Contributor" \
+     --principal-id <managed-identity-principal-id> \
+     --scope "/subscriptions/<sub-id>/resourceGroups/<rg>/providers/Microsoft.DocumentDB/databaseAccounts/<cosmos-account>"
+   ```
+
+3. **Grant AI Services Access:**
+   ```bash
+   az role assignment create \
+     --assignee <managed-identity-principal-id> \
+     --role "Cognitive Services User" \
+     --scope "/subscriptions/<sub-id>/resourceGroups/<rg>/providers/Microsoft.CognitiveServices/accounts/<ai-service>"
+   ```
+
+4. **Configure Cosmos DB Firewall:**
+   - Add `0.0.0.0` to allow Azure services
+   - Enable "Selected networks" public access
 
 **Manual deployment:**
 
