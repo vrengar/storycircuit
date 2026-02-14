@@ -14,6 +14,15 @@ param location string
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
+@description('Azure AI Foundry endpoint')
+param azureAiEndpoint string = ''
+
+@description('Existing Cosmos DB account name')
+param existingCosmosDbName string = 'storycircuit-cosmosdb'
+
+@description('Existing Cosmos DB resource group name')
+param existingCosmosDbResourceGroup string = 'aiworkshop-rg'
+
 // Resource group
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: 'rg-${environmentName}'
@@ -41,16 +50,15 @@ module containerRegistry 'core/container-registry.bicep' = {
   }
 }
 
-// Cosmos DB
-module cosmosDb 'core/cosmos-db.bicep' = {
-  name: 'cosmos-db'
-  scope: rg
-  params: {
-    name: 'cosmos-${environmentName}'
-    location: location
-    databaseName: 'storycircuit'
-    containerName: 'content'
-  }
+// Reference existing Cosmos DB
+resource existingCosmosDbRg 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  scope: subscription()
+  name: existingCosmosDbResourceGroup
+}
+
+resource existingCosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' existing = {
+  scope: existingCosmosDbRg
+  name: existingCosmosDbName
 }
 
 // Monitoring (Log Analytics + Application Insights)
@@ -73,9 +81,9 @@ module containerApp 'core/container-app.bicep' = {
     location: location
     containerAppsEnvironmentId: containerAppsEnvironment.outputs.id
     containerRegistryName: containerRegistry.outputs.name
-    cosmosEndpoint: cosmosDb.outputs.endpoint
+    cosmosEndpoint: existingCosmosDb.properties.documentEndpoint
     applicationInsightsConnectionString: monitoring.outputs.applicationInsightsConnectionString
-    azureAiEndpoint: '' // To be provided
+    azureAiEndpoint: azureAiEndpoint
     azureTenantId: tenant().tenantId
   }
 }
@@ -86,6 +94,6 @@ output AZURE_LOCATION string = location
 output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
 output AZURE_CONTAINER_APPS_ENVIRONMENT_NAME string = containerAppsEnvironment.outputs.name
 output AZURE_CONTAINER_APP_NAME string = containerApp.outputs.name
-output AZURE_COSMOS_ENDPOINT string = cosmosDb.outputs.endpoint
+output AZURE_COSMOS_ENDPOINT string = existingCosmosDb.properties.documentEndpoint
 output APPLICATION_INSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
-output CONTAINER_APP_URL string = containerApp.outputs.url
+output CONTAINER_APP_URL string = 'https://${containerApp.outputs.fqdn}'
