@@ -50,8 +50,17 @@ See [example-output.md](docs/example-output.md) for a full content generation ex
 
 - **[Requirements Specification](REQUIREMENTS.md)** - Full functional and non-functional requirements
 - **[Architecture Specification](ARCHITECTURE.md)** - System design and component architecture
+- **[Architecture Diagram](docs/architecture-diagram.svg)** - Visual system architecture diagram
 - **[API Specification](API_SPEC.md)** - Complete REST API documentation
 - **[Security & Compliance Guidelines](SECURITY.md)** - Security requirements and best practices
+
+## 🏛️ Architecture
+
+### System Architecture Diagram
+
+<img src="https://github.com/vrengar/storycircuit/blob/main/docs/architecture-diagram.svg" alt="StoryCircuit Architecture" width="100%">
+
+*Visual representation of the complete system architecture including all components, data flows, technology stack, and Azure services. See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed specifications.*
 
 ## 🔒 Security & Compliance
 

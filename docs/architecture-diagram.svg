@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #333; }
+      .subtitle { font: 14px sans-serif; fill: #666; }
+      .component-title { font: bold 16px sans-serif; fill: #fff; }
+      .component-text { font: 12px sans-serif; fill: #fff; }
+      .label { font: 12px sans-serif; fill: #333; }
+      .arrow-text { font: 11px sans-serif; fill: #555; }
+      
+      .user-box { fill: #6B8E23; stroke: #556B2F; stroke-width: 2; }
+      .frontend-box { fill: #4A90E2; stroke: #357ABD; stroke-width: 2; }
+      .backend-box { fill: #E67E22; stroke: #D35400; stroke-width: 2; }
+      .azure-box { fill: #0078D4; stroke: #005A9E; stroke-width: 2; }
+      .db-box { fill: #8E44AD; stroke: #6C3483; stroke-width: 2; }
+      .infra-box { fill: #34495E; stroke: #2C3E50; stroke-width: 2; }
+      
+      .arrow { fill: none; stroke: #555; stroke-width: 2; marker-end: url(#arrowhead); }
+      .arrow-bidirectional { fill: none; stroke: #555; stroke-width: 2; marker-end: url(#arrowhead); marker-start: url(#arrowhead-reverse); }
+      .data-flow { fill: none; stroke: #E74C3C; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowhead-red); }
+    </style>
+    
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#555" />
+    </marker>
+    <marker id="arrowhead-reverse" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+      <polygon points="10 0, 0 3, 10 6" fill="#555" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#E74C3C" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" class="title">StoryCircuit - System Architecture</text>
+  <text x="600" y="50" text-anchor="middle" class="subtitle">AI-Powered Technical Narrative Architect</text>
+  
+  <!-- User/Browser -->
+  <rect x="50" y="100" width="200" height="100" rx="10" class="user-box"/>
+  <text x="150" y="130" text-anchor="middle" class="component-title">👤 User</text>
+  <text x="150" y="155" text-anchor="middle" class="component-text">Web Browser</text>
+  <text x="150" y="175" text-anchor="middle" class="component-text">Enters: "AKS security"</text>
+  
+  <!-- Frontend Layer -->
+  <rect x="320" y="80" width="240" height="140" rx="10" class="frontend-box"/>
+  <text x="440" y="110" text-anchor="middle" class="component-title">Frontend Layer</text>
+  <text x="440" y="135" text-anchor="middle" class="component-text">HTML5 / CSS3 / JavaScript</text>
+  <line x1="330" y1="145" x2="550" y2="145" stroke="#fff" stroke-width="1"/>
+  <text x="340" y="165" class="component-text">• User Interface</text>
+  <text x="340" y="185" class="component-text">• Form Validation</text>
+  <text x="340" y="205" class="component-text">• API Client (api.js)</text>
+  
+  <!-- Arrow: User to Frontend -->
+  <path d="M 250 150 L 320 150" class="arrow"/>
+  <text x="270" y="145" class="arrow-text">HTTPS</text>
+  
+  <!-- Backend Layer -->
+  <rect x="640" y="60" width="280" height="180" rx="10" class="backend-box"/>
+  <text x="780" y="90" text-anchor="middle" class="component-title">Backend Layer</text>
+  <text x="780" y="115" text-anchor="middle" class="component-text">FastAPI (Python 3.11+)</text>
+  <line x1="650" y1="125" x2="910" y2="125" stroke="#fff" stroke-width="1"/>
+  <text x="660" y="145" class="component-text">Routers:</text>
+  <text x="670" y="165" class="component-text">• POST /api/v1/content/generate</text>
+  <text x="670" y="185" class="component-text">• GET /api/v1/content/history</text>
+  <text x="660" y="205" class="component-text">Services:</text>
+  <text x="670" y="225" class="component-text">• content_service.py</text>
+  
+  <!-- Arrow: Frontend to Backend -->
+  <path d="M 560 150 L 640 150" class="arrow-bidirectional"/>
+  <text x="575" y="145" class="arrow-text">REST API</text>
+  <text x="580" y="160" class="arrow-text">JSON</text>
+  
+  <!-- Azure AI Foundry Agent -->
+  <rect x="990" y="80" width="180" height="140" rx="10" class="azure-box"/>
+  <text x="1080" y="110" text-anchor="middle" class="component-title">Azure AI Foundry</text>
+  <text x="1080" y="135" text-anchor="middle" class="component-text">Agent Service</text>
+  <line x1="1000" y1="145" x2="1160" y2="145" stroke="#fff" stroke-width="1"/>
+  <text x="1010" y="165" class="component-text">• Web Search Tool</text>
+  <text x="1010" y="185" class="component-text">• File Search Tool</text>
+  <text x="1010" y="205" class="component-text">• CoT Reasoning</text>
+  
+  <!-- Arrow: Backend to Azure AI -->
+  <path d="M 920 150 L 990 150" class="arrow-bidirectional"/>
+  <text x="930" y="145" class="arrow-text">Azure AI SDK</text>
+  
+  <!-- Knowledge Base -->
+  <rect x="990" y="240" width="180" height="80" rx="10" class="azure-box"/>
+  <text x="1080" y="265" text-anchor="middle" class="component-title">Knowledge Base</text>
+  <text x="1080" y="290" text-anchor="middle" class="component-text">987-line instructions</text>
+  <text x="1080" y="310" class="component-text">Brand guidelines, etc.</text>
+  
+  <!-- Arrow: Azure AI to Knowledge Base -->
+  <path d="M 1080 220 L 1080 240" class="arrow"/>
+  <text x="1090" y="235" class="arrow-text">File Search</text>
+  
+  <!-- Database (Cosmos DB) -->
+  <rect x="640" y="280" width="280" height="100" rx="10" class="db-box"/>
+  <text x="780" y="310" text-anchor="middle" class="component-title">Azure Cosmos DB</text>
+  <text x="780" y="335" text-anchor="middle" class="component-text">NoSQL Database</text>
+  <line x1="650" y1="345" x2="910" y2="345" stroke="#fff" stroke-width="1"/>
+  <text x="660" y="365" class="component-text">• Content Storage</text>
+  <text x="660" y="380" class="component-text">• History & Metadata</text>
+  
+  <!-- Arrow: Backend to Database -->
+  <path d="M 780 240 L 780 280" class="arrow-bidirectional"/>
+  <text x="790" y="265" class="arrow-text">content_repo.py</text>
+  
+  <!-- Infrastructure Layer -->
+  <rect x="50" y="450" width="1120" height="120" rx="10" class="infra-box"/>
+  <text x="610" y="480" text-anchor="middle" class="component-title">Azure Infrastructure (IaC)</text>
+  <line x1="60" y1="490" x2="1160" y2="490" stroke="#fff" stroke-width="1"/>
+  
+  <!-- Infrastructure components -->
+  <rect x="80" y="510" width="160" height="50" rx="5" fill="#455A64"/>
+  <text x="160" y="530" text-anchor="middle" class="component-text">Azure Container Apps</text>
+  <text x="160" y="548" text-anchor="middle" class="component-text">(FastAPI + Frontend)</text>
+  
+  <rect x="270" y="510" width="160" height="50" rx="5" fill="#455A64"/>
+  <text x="350" y="530" text-anchor="middle" class="component-text">Application Insights</text>
+  <text x="350" y="548" text-anchor="middle" class="component-text">Monitoring & Logs</text>
+  
+  <rect x="460" y="510" width="160" height="50" rx="5" fill="#455A64"/>
+  <text x="540" y="530" text-anchor="middle" class="component-text">Azure AD</text>
+  <text x="540" y="548" text-anchor="middle" class="component-text">Authentication</text>
+  
+  <rect x="650" y="510" width="160" height="50" rx="5" fill="#455A64"/>
+  <text x="730" y="530" text-anchor="middle" class="component-text">Docker Container</text>
+  <text x="730" y="548" text-anchor="middle" class="component-text">Application Image</text>
+  
+  <rect x="840" y="510" width="160" height="50" rx="5" fill="#455A64"/>
+  <text x="920" y="530" text-anchor="middle" class="component-text">Bicep IaC</text>
+  <text x="920" y="548" text-anchor="middle" class="component-text">Resource Provisioning</text>
+  
+  <rect x="1010" y="510" width="150" height="50" rx="5" fill="#455A64"/>
+  <text x="1085" y="530" text-anchor="middle" class="component-text">GitHub Actions</text>
+  <text x="1085" y="548" text-anchor="middle" class="component-text">CI/CD Pipeline</text>
+  
+  <!-- Data Flow Legend -->
+  <rect x="50" y="620" width="400" height="160" rx="10" fill="#ECF0F1" stroke="#BDC3C7" stroke-width="2"/>
+  <text x="250" y="645" text-anchor="middle" class="label" style="font-weight: bold;">Data Flow Example</text>
+  
+  <text x="70" y="670" class="label">1. User enters: "AKS security in prod"</text>
+  <text x="70" y="690" class="label">2. Frontend → Backend: POST /api/v1/content/generate</text>
+  <text x="70" y="710" class="label">3. Backend → Azure AI Agent: Generate content</text>
+  <text x="70" y="730" class="label">4. Agent searches web + knowledge base</text>
+  <text x="70" y="750" class="label">5. Agent returns platform-specific content</text>
+  <text x="70" y="770" class="label">6. Backend saves to Cosmos DB + returns to Frontend</text>
+  
+  <!-- Technology Stack -->
+  <rect x="500" y="620" width="340" height="160" rx="10" fill="#ECF0F1" stroke="#BDC3C7" stroke-width="2"/>
+  <text x="670" y="645" text-anchor="middle" class="label" style="font-weight: bold;">Technology Stack</text>
+  
+  <text x="520" y="670" class="label">Frontend: HTML5, CSS3, Vanilla JavaScript</text>
+  <text x="520" y="690" class="label">Backend: Python 3.11+, FastAPI, Uvicorn</text>
+  <text x="520" y="710" class="label">AI: Azure AI Foundry, Azure AI Projects SDK</text>
+  <text x="520" y="730" class="label">Database: Azure Cosmos DB (NoSQL)</text>
+  <text x="520" y="750" class="label">Infrastructure: Azure Container Apps, Bicep</text>
+  <text x="520" y="770" class="label">Validation: Pydantic v2, structlog</text>
+  
+  <!-- Key Features -->
+  <rect x="880" y="620" width="290" height="160" rx="10" fill="#ECF0F1" stroke="#BDC3C7" stroke-width="2"/>
+  <text x="1025" y="645" text-anchor="middle" class="label" style="font-weight: bold;">Key Features</text>
+  
+  <text x="900" y="670" class="label">✓ Multi-platform content generation</text>
+  <text x="900" y="690" class="label">✓ Chain-of-Thought (CoT) reasoning</text>
+  <text x="900" y="710" class="label">✓ Web search for current docs</text>
+  <text x="900" y="730" class="label">✓ Content history & versioning</text>
+  <text x="900" y="750" class="label">✓ Export (Markdown, JSON)</text>
+  <text x="900" y="770" class="label">✓ Security validation & compliance</text>
+</svg>

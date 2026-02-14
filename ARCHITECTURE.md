@@ -6,7 +6,15 @@
 
 ## 1. Architecture Overview
 
-### 1.1 System Context
+### 1.1 Visual Architecture Diagram
+
+For a comprehensive visual representation of the system architecture, see:
+
+<img src="https://github.com/vrengar/storycircuit/blob/main/docs/architecture-diagram.svg" alt="StoryCircuit Architecture Diagram" width="100%">
+
+*Complete system architecture showing all components, data flows, and Azure services*
+
+### 1.2 System Context
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -29,7 +37,7 @@
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 1.2 Design Principles
+### 1.3 Design Principles
 
 1. **Separation of Concerns:** Clear boundaries between UI, API, business logic, and data
 2. **Stateless Backend:** No session state in API layer for horizontal scaling
