@@ -199,8 +199,12 @@ app.include_router(health_router, prefix="/api/v1")
 import os
 from pathlib import Path
 
-# Get frontend files path (one level up from backend/)
+# Get frontend files path - works for both local dev and container
 FRONTEND_DIR = Path(__file__).parent.parent.parent / "frontend"
+# In container, frontend is at /app/frontend, so adjust path
+if not FRONTEND_DIR.exists():
+    FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
+
 if FRONTEND_DIR.exists():
     # Mount CSS and JS as static files
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
