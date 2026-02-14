@@ -8,10 +8,10 @@ import asyncio
 
 class MockAgentService:
     """Mock agent service for local development."""
-    
+
     def __init__(self, settings):
         self.settings = settings
-    
+
     async def generate_content(
         self,
         topic: str,
@@ -21,11 +21,13 @@ class MockAgentService:
     ) -> dict[str, Any]:
         """Mock content generation with realistic, topic-aware output."""
         await asyncio.sleep(1.5)  # Simulate API call
-        
+
         # Generate more realistic content based on topic
         audience_text = f" for {audience}" if audience else ""
-        context_text = f"\n\nContext: {additional_context}" if additional_context else ""
-        
+        context_text = (
+            f"\n\nContext: {additional_context}" if additional_context else ""
+        )
+
         return {
             "content": {
                 "plan": {
@@ -35,55 +37,60 @@ class MockAgentService:
                         f"Why {topic} matters in modern development",
                         f"Real-world patterns and anti-patterns",
                         f"Actionable steps to implement {topic}",
-                        "Common mistakes and how to avoid them"
+                        "Common mistakes and how to avoid them",
                     ],
                     "example": f"Think about the last time you struggled with scaling your application. {topic} solves this by...",
-                    "cta": f"Ready to level up your {topic} game? Drop a comment with your biggest challenge!"
+                    "cta": f"Ready to level up your {topic} game? Drop a comment with your biggest challenge!",
                 },
                 "outputs": {
-                    "twitter": {
-                        "thread_structure": "7 tweet thread with hook → problem → solution → implementation → results",
-                        "tweets": [
-                            {
-                                "order": 1,
-                                "content": f"[Thread] Just spent 6 months deep-diving into {topic}{audience_text}.\n\nHere's what most people get wrong (and how to fix it):",
-                                "character_count": 150
-                            },
-                            {
-                                "order": 2,
-                                "content": f"The Problem:\n\nMost teams approach {topic} wrong. They focus on tools before understanding principles.\n\nResult? Technical debt, frustrated developers, and failed implementations.",
-                                "character_count": 185
-                            },
-                            {
-                                "order": 3,
-                                "content": f"Here's the reality:\n\n{topic} isn't about the latest framework—it's about solving real problems{audience_text}.\n\nStart with WHY, not HOW.",
-                                "character_count": 150
-                            },
-                            {
-                                "order": 4,
-                                "content": f"3 key principles I learned:\n\n1. Start simple, scale intentionally\n2. Optimize for iteration speed\n3. Measure everything{context_text}",
-                                "character_count": 140
-                            },
-                            {
-                                "order": 5,
-                                "content": f"Real example:\n\nWe implemented {topic} and reduced deployment time by 60%.\n\nNot through fancy tools—through better processes.",
-                                "character_count": 135
-                            },
-                            {
-                                "order": 6,
-                                "content": "The results speak for themselves:\n- Faster releases\n- Fewer bugs in production\n- Happier developers\n- Better system reliability",
-                                "character_count": 140
-                            },
-                            {
-                                "order": 7,
-                                "content": f"Bottom line:\n\n{topic} done right = competitive advantage.\n\nWhat's your experience? Reply with your biggest challenge!",
-                                "character_count": 130
-                            }
-                        ]
-                    } if "twitter" in platforms else None,
-                    "linkedin": {
-                        "short_version": {
-                            "content": f"""Hot take: {topic} is a game-changer{audience_text}
+                    "twitter": (
+                        {
+                            "thread_structure": "7 tweet thread with hook → problem → solution → implementation → results",
+                            "tweets": [
+                                {
+                                    "order": 1,
+                                    "content": f"[Thread] Just spent 6 months deep-diving into {topic}{audience_text}.\n\nHere's what most people get wrong (and how to fix it):",
+                                    "character_count": 150,
+                                },
+                                {
+                                    "order": 2,
+                                    "content": f"The Problem:\n\nMost teams approach {topic} wrong. They focus on tools before understanding principles.\n\nResult? Technical debt, frustrated developers, and failed implementations.",
+                                    "character_count": 185,
+                                },
+                                {
+                                    "order": 3,
+                                    "content": f"Here's the reality:\n\n{topic} isn't about the latest framework—it's about solving real problems{audience_text}.\n\nStart with WHY, not HOW.",
+                                    "character_count": 150,
+                                },
+                                {
+                                    "order": 4,
+                                    "content": f"3 key principles I learned:\n\n1. Start simple, scale intentionally\n2. Optimize for iteration speed\n3. Measure everything{context_text}",
+                                    "character_count": 140,
+                                },
+                                {
+                                    "order": 5,
+                                    "content": f"Real example:\n\nWe implemented {topic} and reduced deployment time by 60%.\n\nNot through fancy tools—through better processes.",
+                                    "character_count": 135,
+                                },
+                                {
+                                    "order": 6,
+                                    "content": "The results speak for themselves:\n- Faster releases\n- Fewer bugs in production\n- Happier developers\n- Better system reliability",
+                                    "character_count": 140,
+                                },
+                                {
+                                    "order": 7,
+                                    "content": f"Bottom line:\n\n{topic} done right = competitive advantage.\n\nWhat's your experience? Reply with your biggest challenge!",
+                                    "character_count": 130,
+                                },
+                            ],
+                        }
+                        if "twitter" in platforms
+                        else None
+                    ),
+                    "linkedin": (
+                        {
+                            "short_version": {
+                                "content": f"""Hot take: {topic} is a game-changer{audience_text}
 
 After 6 months implementing this, here's what I learned:
 
@@ -102,11 +109,11 @@ The result? 60% faster delivery, higher quality, and happier teams.
 {topic} isn't just a technical choice—it's a strategic advantage.
 
 What's been your experience?{context_text}""",
-                            "character_count": 500,
-                            "estimated_read_time": "1 min"
-                        },
-                        "long_version": {
-                            "content": f"""# Why {topic} Changed How We Build Software{audience_text}
+                                "character_count": 500,
+                                "estimated_read_time": "1 min",
+                            },
+                            "long_version": {
+                                "content": f"""# Why {topic} Changed How We Build Software{audience_text}
 
 ## The Challenge
 
@@ -175,12 +182,16 @@ What's your experience with {topic}? What challenges are you facing?
 Found this helpful? Repost to help others in your network!
 
 #SoftwareEngineering #TechLeadership #Development""",
-                            "character_count": 1800,
-                            "estimated_read_time": "4 min"
+                                "character_count": 1800,
+                                "estimated_read_time": "4 min",
+                            },
                         }
-                    } if "linkedin" in platforms else None,
-                    "github": {
-                        "readme_snippet": f"""## {topic}
+                        if "linkedin" in platforms
+                        else None
+                    ),
+                    "github": (
+                        {
+                            "readme_snippet": f"""## {topic}
 
 ### Overview
 This implementation demonstrates production-ready patterns for {topic}{audience_text}.
@@ -214,7 +225,7 @@ npm run dev
 
 ### Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.{context_text}""",
-                        "release_notes": f"""## v1.0.0 - {topic} Implementation
+                            "release_notes": f"""## v1.0.0 - {topic} Implementation
 
 ### Features
 - Implemented core {topic} functionality
@@ -231,10 +242,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.{context_text}""",
 - Improved performance under load
 
 ### Breaking Changes
-None - this is the initial release!"""
-                    } if "github" in platforms else None,
-                    "blog": {
-                        "content": f"""# Deep Dive: {topic}{audience_text}
+None - this is the initial release!""",
+                        }
+                        if "github" in platforms
+                        else None
+                    ),
+                    "blog": (
+                        {
+                            "content": f"""# Deep Dive: {topic}{audience_text}
 
 ## Introduction
 
@@ -305,15 +320,18 @@ Let me share how we implemented {topic} in production:
 Start small, measure results, and iterate based on learning.
 
 [Read more technical deep-dives →]""",
-                        "character_count": 2000,
-                        "estimated_read_time": "5 min"
-                    } if "blog" in platforms else None
+                            "character_count": 2000,
+                            "estimated_read_time": "5 min",
+                        }
+                        if "blog" in platforms
+                        else None
+                    ),
                 },
-                "notes": f"⚠️ MOCK CONTENT: This is generated by mock services for local development. Real Azure AI Foundry would provide deeper technical analysis tailored to {topic}{audience_text}."
+                "notes": f"⚠️ MOCK CONTENT: This is generated by mock services for local development. Real Azure AI Foundry would provide deeper technical analysis tailored to {topic}{audience_text}.",
             },
-            "duration": 1.5
+            "duration": 1.5,
         }
-    
+
     async def health_check(self) -> bool:
         """Mock health check."""
         return True
@@ -321,34 +339,36 @@ Start small, measure results, and iterate based on learning.
 
 class MockContentRepository:
     """Mock repository for local development."""
-    
+
     def __init__(self, settings):
         self.settings = settings
         self._storage = {}
-    
+
     async def create(self, document) -> Any:
         """Mock create."""
         self._storage[document.id] = document
         return document
-    
+
     async def get_by_id(self, content_id: str, user_id: str) -> Any:
         """Mock get."""
         from ..utils.exceptions import ContentNotFoundError
+
         if content_id not in self._storage:
             raise ContentNotFoundError(f"Content {content_id} not found")
         return self._storage[content_id]
-    
+
     async def query_by_user(self, user_id: str, **kwargs) -> Any:
         """Mock query."""
         from ..models.database import ContentQueryResult
+
         docs = [doc for doc in self._storage.values() if doc.partition_key == user_id]
         return ContentQueryResult(documents=docs, count=len(docs))
-    
+
     async def delete(self, content_id: str, user_id: str) -> None:
         """Mock delete."""
         if content_id in self._storage:
             self._storage[content_id].deleted = True
-    
+
     async def health_check(self) -> bool:
         """Mock health check."""
         return True

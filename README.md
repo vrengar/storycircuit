@@ -53,6 +53,10 @@ See [example-output.md](docs/example-output.md) for a full content generation ex
 - **[API Specification](API_SPEC.md)** - Complete REST API documentation
 - **[Security & Compliance Guidelines](SECURITY.md)** - Security requirements and best practices
 
+## 🏛️ Architecture
+
+For complete system architecture including all components, data flows, technology stack, and Azure services, see [ARCHITECTURE.md](ARCHITECTURE.md) for detailed specifications.
+
 ## 🔒 Security & Compliance
 
 **IMPORTANT:** This application is designed for **public, general-level content only**.

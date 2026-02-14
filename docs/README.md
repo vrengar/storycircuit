@@ -42,7 +42,6 @@ To capture the output screenshot:
 ## Future Documentation
 
 Additional documentation may include:
-- Architecture diagrams
 - Deployment guides
 - API usage examples
 - Video demos
