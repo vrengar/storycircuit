@@ -58,7 +58,7 @@ See [example-output.md](docs/example-output.md) for a full content generation ex
 
 ### System Architecture Diagram
 
-<img src="https://github.com/vrengar/storycircuit/blob/copilot/add-architecture-diagram/docs/architecture-diagram.svg" alt="StoryCircuit Architecture" width="100%">
+![StoryCircuit Architecture](docs/architecture-diagram.svg)
 
 *Visual representation of the complete system architecture including all components, data flows, technology stack, and Azure services. See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed specifications.*
 

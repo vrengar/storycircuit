@@ -10,7 +10,7 @@
 
 For a comprehensive visual representation of the system architecture, see:
 
-<img src="https://github.com/vrengar/storycircuit/blob/copilot/add-architecture-diagram/docs/architecture-diagram.svg" alt="StoryCircuit Architecture Diagram" width="100%">
+![StoryCircuit Architecture Diagram](docs/architecture-diagram.svg)
 
 *Complete system architecture showing all components, data flows, and Azure services*
 
