@@ -6,28 +6,14 @@ This directory contains documentation assets for the StoryCircuit project.
 
 ### Available Files
 
-### Architecture Diagram
-
-1. **architecture-diagram.svg** - Complete system architecture diagram showing:
-   - Frontend Layer (HTML5/CSS3/JavaScript)
-   - Backend Layer (FastAPI/Python 3.11+)
-   - Azure AI Foundry Agent Service
-   - Knowledge Base with CoT reasoning patterns
-   - Azure Cosmos DB (NoSQL database)
-   - Infrastructure components (Azure Container Apps, Application Insights, etc.)
-   - Data flow and technology stack
-   - Key features and capabilities
-
-### Screenshots
-
-2. **screenshot-ui.png** - Main application interface showing:
+1. **screenshot-ui.png** - Main application interface showing:
    - Topic input field with example "Intelligent multi-agent apps with Microsoft Foundry"
    - Platform checkboxes (LinkedIn, X/Twitter, GitHub, Blog)
    - Target Audience field: "Software developers"
    - Additional Context field: "Microsoft Foundry, Agent Framework, Azure"
    - Generate Content button
 
-3. **screenshot-output.png** - Generated content display showing:
+2. **screenshot-output.png** - Generated content display showing:
    - Platform-specific content with clean markdown formatting
    - Copy-to-clipboard buttons
    - Styled hashtags (blue pill-shaped badges)
